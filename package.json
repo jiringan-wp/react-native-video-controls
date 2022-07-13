@@ -17,7 +17,7 @@
   "author": "Nubix (https://github.com/itsnubix)",
   "repository": {
     "type": "git",
-    "url": "git@github.com:itsnubix/react-native-video-controls.git"
+    "url": "git@github.com:jiringan-wp/react-native-video-controls.git"
   },
   "dependencies": {
     "lodash": "^4.16.4"
