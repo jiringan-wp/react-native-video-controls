@@ -1084,7 +1084,7 @@ export default class VideoPlayer extends Component {
 
   renderFullscreen() {
     let icon =
-      this.state.isFullscreen === false
+      this.state.isFullscreen === true
         ? 'minimize'
         : 'maximize';
     return (
