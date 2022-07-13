@@ -1073,10 +1073,10 @@ export default class VideoPlayer extends Component {
       <TouchableWithoutFeedback>
         {this.renderControl(
           <View style={{
-            borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 32, width: 32, borderWidth: 1, borderColor: '#fff'
-          }}><MaterialCommunityIcons name={'picture-in-picture-top-right-outline'} size={18} style={[styles.controls.back, {color: '#fff'}]}/></View>,
-          this.methods.toggleFullscreen,
-          styles.controls.fullscreen,
+            marginBottom: 6,
+            marginRight: -15,
+            borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 40, width: 56, borderWidth: 1, borderColor: '#fff'
+          }}><MaterialCommunityIcons name={'picture-in-picture-bottom-right-outline'} size={24} style={[styles.controls.back, {color: '#fff'}]}/></View>
         )}
       </TouchableWithoutFeedback>
     );
@@ -1084,13 +1084,16 @@ export default class VideoPlayer extends Component {
 
   renderFullscreen() {
     let icon =
-      this.state.isFullscreen === true
+      this.state.isFullscreen === false
         ? 'minimize'
         : 'maximize';
     return (
-      <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', marginBottom: 7}}>
+      <View style={{marginRight: 10}}>
         {this.renderControl(
-          <Feather name={icon} size={24} style={[styles.controls.back, {color: '#fff'}]}/>,
+          <View style={{
+            marginBottom: 6,
+            borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 40, width: 56, borderWidth: 1, borderColor: '#fff'
+          }}><Feather name={icon} size={24} style={[styles.controls.back, {color: '#fff'}]}/></View>,
           this.methods.toggleFullscreen,
           styles.controls.fullscreen,
         )}
@@ -1219,7 +1222,9 @@ export default class VideoPlayer extends Component {
               borderWidth: 1,
               paddingRight: 10,
               paddingBottom: 5,
-              borderRadius: 4
+              borderRadius: 4,
+              marginTop: 10,
+              maxHeight: 40
 
             }]}>
               {timerControl}
@@ -1301,7 +1306,7 @@ export default class VideoPlayer extends Component {
         ? 'play'
         : 'pause';
     return this.renderControl(
-      <View style={{borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 32, width: 32, borderWidth: 1, borderColor: '#fff'}}><Feather name={icon} size={20} style={{color: '#fff'}}/></View>,
+      <View style={{borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 56, width: 80, borderWidth: 1, borderColor: '#fff'}}><MaterialCommunityIcons name={icon} size={32} style={{color: '#fff'}}/></View>,
       this.methods.togglePlayPause,
       styles.controls.playPause,
     );
@@ -1550,8 +1555,9 @@ const styles = {
     },
     playPause: {
       position: 'relative',
-      width: 50,
+      width: 60,
       alignItems: 'center',
+      marginHorizontal: 16,
       zIndex: 0
     },
     title: {
@@ -1609,7 +1615,7 @@ const styles = {
     container: {
       alignSelf: 'center',
       flexGrow: 1,
-      width: '45%',
+      width: '47%',
       height: 28,
       marginRight: 2
       //marginLeft: 20,
