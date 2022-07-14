@@ -139,7 +139,8 @@ export default class VideoPlayer extends Component {
       togglePlayPause: this._togglePlayPause.bind(this),
       toggleControls: this._toggleControls.bind(this),
       toggleTimer: this._toggleTimer.bind(this),
-      seekTo: this.seekTo.bind(this)
+      seekTo: this.seekTo.bind(this),
+      togglePip: this._onPressPicturePicture.bind(this)
     };
 
     /**
@@ -1074,11 +1075,13 @@ export default class VideoPlayer extends Component {
   /**
    * Render fullscreen toggle and set icon based on the fullscreen state.
    */
-  tipmeRef = null
 
-  onPressTipComponent(){
-      this.props.onPressTip()
-      this.tipmeRef.play();
+
+  _onPressPicturePicture(){
+    let state = this.state;
+    if(typeof this.props.onPressPicturePicture === 'function'){
+      this.props.onPressPicturePicture(state?.currentTime);
+    } 
   }
 
 
@@ -1091,7 +1094,7 @@ export default class VideoPlayer extends Component {
             marginRight: -15,
             borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 40, width: 56, borderWidth: 1, borderColor: '#fff'
           }}><MaterialCommunityIcons name={'picture-in-picture-bottom-right-outline'} size={24} style={[styles.controls.back, {color: '#fff'}]}/></View>,
-          this.props.onPressPicturePicture
+          this.methods.togglePip
         )}
       </View>
     );
