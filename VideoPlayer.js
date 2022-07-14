@@ -42,12 +42,14 @@ export default class VideoPlayer extends Component {
     rate: 1,
     disableSettings: false,
     disableBack: false,
+    replay: false,
     onPause: ()=>{},
     onPlay: ()=> {},
     onSettings: ()=>{},
     onSkipBack: ()=>{},
     onSkipForward: ()=>{},
     onSeekChange: ()=>{},
+    onPressPicturePicture: () => {},
     disableSkipForward: false,
     disableSkipBack: false,
     childSettings: <Feather name='more-vertical' size={24} style={{color: '#fff'}}/>,
@@ -91,6 +93,7 @@ export default class VideoPlayer extends Component {
       currentTime: 0,
       error: false,
       duration: 0,
+      replay: false
     };
 
     /**
@@ -524,6 +527,11 @@ export default class VideoPlayer extends Component {
     if (state.paused) {
       typeof this.events.onPause === 'function' && this.events.onPause();
     } else {
+      if(this.state.replay === true){
+        state.replay = false;
+        this.seekTo(0);
+        this.setSeekerPosition(0);
+      }
       typeof this.events.onPlay === 'function' && this.events.onPlay();
     }
 
@@ -774,6 +782,12 @@ export default class VideoPlayer extends Component {
     if (this.state.isFullscreen !== nextProps.isFullscreen) {
       this.setState({
         isFullscreen: nextProps.isFullscreen,
+      });
+    }
+
+    if(this.state.replay !== nextProps.replay){
+      this.setState({
+        replay: nextProps.replay
       });
     }
 
@@ -1070,15 +1084,16 @@ export default class VideoPlayer extends Component {
 
   renderPictureControl() {
     return (
-      <TouchableWithoutFeedback>
+      <View>
         {this.renderControl(
           <View style={{
             marginBottom: 6,
             marginRight: -15,
             borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 40, width: 56, borderWidth: 1, borderColor: '#fff'
-          }}><MaterialCommunityIcons name={'picture-in-picture-bottom-right-outline'} size={24} style={[styles.controls.back, {color: '#fff'}]}/></View>
+          }}><MaterialCommunityIcons name={'picture-in-picture-bottom-right-outline'} size={24} style={[styles.controls.back, {color: '#fff'}]}/></View>,
+          this.props.onPressPicturePicture
         )}
-      </TouchableWithoutFeedback>
+      </View>
     );
   }
 
@@ -1302,8 +1317,9 @@ export default class VideoPlayer extends Component {
    */
   renderPlayPause() {
     let icon =
-      this.state.paused === true
+      this.state.paused === true && !this.state.replay
         ? 'play'
+        : this.state.paused === true && this.state.replay === true ? 'replay' 
         : 'pause';
     return this.renderControl(
       <View style={{borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 56, width: 80, borderWidth: 1, borderColor: '#fff'}}><MaterialCommunityIcons name={icon} size={32} style={{color: '#fff'}}/></View>,
@@ -1615,7 +1631,7 @@ const styles = {
     container: {
       alignSelf: 'center',
       flexGrow: 1,
-      width: '47%',
+      width: Platform.OS === 'android' ? '65%' : '50%',
       height: 28,
       marginRight: 2
       //marginLeft: 20,
