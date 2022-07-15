@@ -502,6 +502,7 @@ export default class VideoPlayer extends Component {
     let state = this.state;
 
     state.isFullscreen = !state.isFullscreen;
+    state.paused = true;
 
     if (this.props.toggleResizeModeOnFullscreen) {
       state.resizeMode = state.isFullscreen === true ? 'cover' : 'contain';
@@ -1603,7 +1604,7 @@ const styles = {
   }),
   volume: StyleSheet.create({
     container: {
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'flex-start',
       flexDirection: 'column-reverse',
       // height: 150,
