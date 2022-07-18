@@ -1027,9 +1027,9 @@ export default class VideoPlayer extends Component {
           imageStyle={[styles.controls.vignette]}>
           <SafeAreaView style={styles.controls.topControlGroup}>
             {backControl}
-            {/* <View style={styles.controls.pullRight}>
+            <View style={styles.controls.pullRight}>
               {volumeControl}
-            </View> */}
+            </View>
           </SafeAreaView>
         </ImageBackground>
       </Animated.View>
@@ -1056,13 +1056,13 @@ export default class VideoPlayer extends Component {
     return (
       <View style={styles.volume.container}>
         <View
-          style={[styles.volume.fill, {height: this.state.volumeFillWidth}]}
+          style={[styles.volume.fill, {width: this.state.volumeFillWidth}]}
         />
         <View
-          style={[styles.volume.track, {height: this.state.volumeTrackWidth}]}
+          style={[styles.volume.track, {width: this.state.volumeTrackWidth}]}
         />
         <View
-          style={[styles.volume.handle, {bottom: this.state.volumePosition}]}
+          style={[styles.volume.handle, {left: this.state.volumePosition}]}
           {...this.player.volumePanResponder.panHandlers}>
           <Image
             style={styles.volume.icon}
@@ -1266,7 +1266,7 @@ export default class VideoPlayer extends Component {
   renderSeekbar() {
     return (
       <View
-        style={styles.seekbar.container}
+        style={[styles.seekbar.container, this.props.disableFullscreen === true ? styles.seekbar.containerFull: {}]}
         collapsable={false}
         {...this.player.seekPanResponder.panHandlers}>
           <View
@@ -1604,31 +1604,31 @@ const styles = {
   }),
   volume: StyleSheet.create({
     container: {
-      alignItems: 'flex-start',
+      alignItems: 'center',
       justifyContent: 'flex-start',
-      flexDirection: 'column-reverse',
-      // height: 150,
-      marginTop: 20,
-      marginBottom: 20,
-      width: 8,
-    },  
+      flexDirection: 'row',
+      height: 1,
+      marginLeft: 20,
+      marginRight: 20,
+      width: 150,
+    },
     track: {
       backgroundColor: '#333',
-      width: 8,
-      marginBottom: 7,
+      height: 1,
+      marginLeft: 7,
     },
     fill: {
       backgroundColor: '#FFF',
-      width: 8,
+      height: 1,
     },
     handle: {
       position: 'absolute',
-      marginBottom: -24,
+      marginTop: -24,
       marginLeft: -24,
       padding: 16,
     },
     icon: {
-      marginRight: 7,
+      marginLeft: 7,
     },
   }),
   seekbar: StyleSheet.create({
@@ -1640,6 +1640,9 @@ const styles = {
       marginRight: 2
       //marginLeft: 20,
       //marginRight: 20,
+    },
+    containerFull: {
+      width: Platform.OS === 'android' ? '80%' : '60%'
     },
     track: {
       backgroundColor: '#757575',
