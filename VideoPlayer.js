@@ -1326,7 +1326,7 @@ export default class VideoPlayer extends Component {
         : this.state.paused === true && this.state.replay === true ? 'replay' 
         : 'pause';
     return this.renderControl(
-      <View style={{borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 56, width: 80, borderWidth: 1, borderColor: '#fff'}}><MaterialCommunityIcons name={icon} size={32} style={{color: '#fff'}}/></View>,
+      <View style={{borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 56, width: 80, borderWidth: 1, borderColor: '#fff', marginRight: 12}}><MaterialCommunityIcons name={icon} size={32} style={{color: '#fff'}}/></View>,
       this.methods.togglePlayPause,
       styles.controls.playPause,
     );
@@ -1565,7 +1565,9 @@ const styles = {
       alignSelf: 'stretch',
       alignItems: 'flex-end',
       justifyContent: 'space-between',
-      marginBottom: 12
+      marginBottom: 12,
+      marginLeft: 16,
+      marginRight: -8
     },
     volume: {
       flexDirection: 'row',
@@ -1635,7 +1637,7 @@ const styles = {
     container: {
       alignSelf: 'center',
       flexGrow: 1,
-      width: Platform.OS === 'android' ? '65%' : '50%',
+      width: Platform.OS === 'android' ? '60%' : '50%',
       height: 28,
       marginRight: 2
       //marginLeft: 20,
