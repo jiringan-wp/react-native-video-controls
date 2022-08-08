@@ -978,10 +978,10 @@ export default class VideoPlayer extends Component {
    */
   renderControl(children, callback, style = {}) {
     return (
-      <FlexButton
+      <TouchableHighlight
         underlayColor="transparent"
         activeOpacity={0.3}
-        onPressIn={() => {
+        onPress={() => {
           this.resetControlTimeout();
           callback();
         }}
@@ -989,7 +989,7 @@ export default class VideoPlayer extends Component {
         <View style={[styles.controls.control, style]}>
           {children}
         </View>
-      </FlexButton>
+      </TouchableHighlight>
     );
   }
 
@@ -1095,7 +1095,8 @@ export default class VideoPlayer extends Component {
             marginRight: -15,
             borderRadius: 4, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000cc', height: 40, width: 56, borderWidth: 1, borderColor: '#fff'
           }}><MaterialCommunityIcons name={'picture-in-picture-bottom-right-outline'} size={24} style={[styles.controls.back, {color: '#fff'}]}/></View>,
-          this.methods.togglePip
+          this.methods.togglePip,
+          styles.controls.pip
         )}
       </View>
     );
@@ -1146,52 +1147,6 @@ export default class VideoPlayer extends Component {
     );
   }
 
-
-
-  /** 
-   * 
-   * 
-   */
-
-  renderPlayPauseControls() {
-    const playPauseControl = this.props.disablePlayPause
-    ? this.renderNullControl()
-    : this.renderPlayPause();
-
-    const skipBackControl = this.props.disableSkip
-    ? this.renderNullControl()
-    : this.renderSkipBack();
-
-    const skipForwardControl = this.props.disableSkip
-    ? this.renderNullControl()
-    : this.renderSkipForward();
-    return (
-      <Animated.View
-        style={[
-          styles.controls.centerContainer,
-          {
-            opacity: this.animations.bottomControl.opacity,
-            marginBottom: this.animations.bottomControl.marginBottom,
-          },
-        ]}>
-          <View style={styles.loader.container}>
-            <SafeAreaView
-              style={[styles.controls.row]}>
-              {!this.props.isLive && (
-                  <React.Fragment>
-                      {skipBackControl}
-                      {playPauseControl}
-                      {skipForwardControl}
-                  </React.Fragment>
-              )}
-              
-            </SafeAreaView>
-          </View>
-        </Animated.View>
-      
-    );
-
-  }
 
   /**
    * Render bottom control group and wrap it in a holder
@@ -1244,7 +1199,6 @@ export default class VideoPlayer extends Component {
               borderRadius: 4,
               marginTop: 10,
               maxHeight: 40
-
             }]}>
               {timerControl}
               {seekbarControl}
@@ -1413,7 +1367,7 @@ export default class VideoPlayer extends Component {
    */
   render() {
     return (
-      <FlexButton
+      <TouchableWithoutFeedback
         activeOpacity={1}
         onPress={()=>{this.events.onScreenTouch; this._toggleControls()}}
         style={[styles.player.container, this.styles.containerStyle]}>
@@ -1444,7 +1398,7 @@ export default class VideoPlayer extends Component {
             </React.Fragment>
           )}
         </View>
-      </FlexButton>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -1577,10 +1531,13 @@ const styles = {
     },
     playPause: {
       position: 'relative',
-      width: 60,
+      width: 75,
       alignItems: 'center',
-      marginHorizontal: 16,
-      zIndex: 0
+      marginHorizontal: 8,
+      zIndex: 9
+    },
+    pip: {
+      zIndex: 9
     },
     title: {
       alignItems: 'center',
