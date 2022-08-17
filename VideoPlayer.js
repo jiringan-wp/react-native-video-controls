@@ -216,6 +216,15 @@ export default class VideoPlayer extends Component {
     if (typeof this.props.onLoadStart === 'function') {
       this.props.onLoadStart(...arguments);
     }
+
+    // if (this.props.initialSeekTo) {
+    //   this.seekTo(this.props.initialSeekTo);
+    //   this.setSeekerPosition(this.props.initialSeekTo);
+
+    //   state.currentTime = this.props.initialSeekTo;
+
+    //   this.setState(state);
+    // }
   }
 
   /**
@@ -510,7 +519,8 @@ export default class VideoPlayer extends Component {
 
     if (state.isFullscreen) {
       typeof this.events.onEnterFullscreen === 'function' &&
-        this.events.onEnterFullscreen();
+        this.events.onEnterFullscreen(state);
+        state.isFullscreen = false;
     } else {
       typeof this.events.onExitFullscreen === 'function' &&
         this.events.onExitFullscreen();
@@ -1594,14 +1604,14 @@ const styles = {
     container: {
       alignSelf: 'center',
       flexGrow: 1,
-      width: Platform.OS === 'android' ? '60%' : '50%',
+      width: Platform.OS === 'android' ? '52%' : '50%',
       height: 28,
       marginRight: 2
       //marginLeft: 20,
       //marginRight: 20,
     },
     containerFull: {
-      width: Platform.OS === 'android' ? '80%' : '60%'
+      width: Platform.OS === 'android' ? '75%' : '60%'
     },
     track: {
       backgroundColor: '#757575',
